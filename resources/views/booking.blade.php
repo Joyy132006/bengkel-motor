@@ -319,9 +319,128 @@
         }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ── Responsive Nav ── */
-        @media (max-width: 640px) {
-            .nav-links .hide-mobile { display: none; }
+        /* ── Responsive Nav & Hamburger Menu ── */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 100;
+            padding: 0;
+        }
+        .menu-toggle .bar {
+            width: 100%;
+            height: 2.5px;
+            background-color: var(--text);
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .menu-toggle.open .bar-1 {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .menu-toggle.open .bar-2 {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        .menu-toggle.open .bar-3 {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 98;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0; right: -320px; width: 280px; height: 100vh;
+            background: rgba(9, 15, 30, 0.96);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-left: 1px solid rgba(255,255,255,0.06);
+            box-shadow: -15px 0 40px rgba(0,0,0,0.6);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            padding: 7rem 2rem 2rem;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            right: 0;
+        }
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .mobile-nav-links li {
+            width: 100%;
+        }
+        .mobile-nav-links a {
+            color: var(--text2);
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 600;
+            transition: color 0.2s, transform 0.2s;
+            display: block;
+        }
+        .mobile-nav-links a:hover {
+            color: var(--orange);
+            transform: translateX(4px);
+        }
+
+        /* ── Mobile Responsive Overrides ── */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1.25rem;
+            }
+            .nav-links .hide-mobile { display: none !important; }
+            .menu-toggle { display: flex; }
+            .header-section {
+                padding: 6rem 1.25rem 1.5rem;
+            }
+            .header-wrap {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                text-align: center;
+            }
+            .header-content {
+                text-align: center;
+            }
+            .header-desc {
+                margin: 0 auto 1.5rem;
+            }
+            .header-mascot {
+                margin-top: 1.5rem;
+                max-width: 280px;
+            }
+            .booking-section {
+                padding: 0.5rem 1.25rem 4rem;
+            }
+            .booking-card {
+                padding: 1.5rem 1.25rem;
+                border-radius: 20px;
+            }
+            .booking-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -331,8 +450,7 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
-    <!-- Navbar -->
-    <nav>
+    <nav id="navbar">
         <a href="/" class="nav-logo">
             <div class="logo-icon"><i data-lucide="wrench"></i></div>
             <span class="brand-name">Bengkel<span class="brand-accent">Pro</span></span>
@@ -348,7 +466,7 @@
                         <i data-lucide="user" style="width:13px;height:13px;color:var(--orange)"></i>
                         {{ auth()->user()->name }}
                     </li>
-                    <li>
+                    <li class="hide-mobile">
                         <form method="POST" action="{{ route('logout') }}" style="display:inline">
                             @csrf
                             <button type="submit" class="btn-nav" style="border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.1);color:#F87171">
@@ -357,13 +475,50 @@
                         </form>
                     </li>
                 @else
-                    <li><a href="/dashboard" class="btn-nav"><i data-lucide="layout-dashboard" style="width:14px;height:14px"></i> Dashboard</a></li>
+                    <li class="hide-mobile"><a href="/dashboard" class="btn-nav"><i data-lucide="layout-dashboard" style="width:14px;height:14px"></i> Dashboard</a></li>
                 @endif
             @else
-                <li><a href="/login" class="btn-nav"><i data-lucide="log-in" style="width:14px;height:14px"></i> Masuk</a></li>
+                <li class="hide-mobile"><a href="/login" class="btn-nav"><i data-lucide="log-in" style="width:14px;height:14px"></i> Masuk</a></li>
             @endauth
         </ul>
+        <!-- Hamburger Menu Button -->
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Toggle Menu">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+        </button>
     </nav>
+
+    <!-- Mobile Menu Drawer -->
+    <div class="mobile-menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-nav-links">
+            <li><a href="/#layanan" onclick="toggleMenu()">Layanan</a></li>
+            <li><a href="/produk" onclick="toggleMenu()">Katalog Barang</a></li>
+            <li><a href="/booking" onclick="toggleMenu()">Booking</a></li>
+            <li><a href="/cek-status" onclick="toggleMenu()">Cek Status</a></li>
+            @auth
+                @if(auth()->user()->role === 'customer')
+                    <li style="color:var(--text2);font-weight:600;font-size:1.05rem;display:flex;align-items:center;gap:.4rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:1rem;">
+                        <i data-lucide="user" style="width:15px;height:15px;color:var(--orange)"></i>
+                        {{ auth()->user()->name }}
+                    </li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}" style="display:inline">
+                            @csrf
+                            <button type="submit" class="btn-nav" style="border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.1);color:#F87171;width:100%;justify-content:center;padding:.8rem;">
+                                <i data-lucide="log-out" style="width:14px;height:14px"></i> Keluar
+                            </button>
+                        </form>
+                    </li>
+                @else
+                    <li><a href="/dashboard" class="btn-nav" style="width:100%;justify-content:center;padding:.8rem;"><i data-lucide="layout-dashboard" style="width:14px;height:14px"></i> Dashboard</a></li>
+                @endif
+            @else
+                <li><a href="/login" class="btn-nav" style="width:100%;justify-content:center;padding:.8rem;"><i data-lucide="log-in" style="width:14px;height:14px"></i> Masuk</a></li>
+            @endauth
+        </ul>
+    </div>
 
     <!-- Header Section -->
     <section class="header-section">
@@ -610,6 +765,23 @@
             const reveals = document.querySelectorAll('.reveal');
             reveals.forEach(r => r.classList.add('visible'));
         });
+
+        // Hamburger Menu toggle
+        function toggleMenu() {
+            const toggle = document.getElementById('menuToggle');
+            const menu = document.getElementById('mobileMenu');
+            const backdrop = document.getElementById('menuBackdrop');
+            
+            toggle.classList.toggle('open');
+            menu.classList.toggle('open');
+            backdrop.classList.toggle('open');
+            
+            if (menu.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
     </script>
 </body>
 </html>
