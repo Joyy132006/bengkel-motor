@@ -34,7 +34,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 # Create SQLite database file and run migration & seeding
 RUN touch database/database.sqlite && chown www-data:www-data database/database.sqlite
-RUN php artisan migrate --force --seed
+RUN DB_CONNECTION=sqlite DB_DATABASE=database/database.sqlite php artisan migrate --force --seed
 
 # Expose default port
 EXPOSE 80
