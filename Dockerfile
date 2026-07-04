@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
 # Install system dependencies and PHP extensions for SQLite and MySQL
 RUN apt-get update && apt-get install -y \
@@ -6,20 +6,6 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     && docker-php-ext-install pdo pdo_sqlite pdo_mysql
-
-# Enable Apache Mod-Rewrite and resolve MPM conflicts by force-deleting event/worker configs
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.load /etc/apache2/mods-enabled/mpm_event.conf /etc/apache2/mods-enabled/mpm_worker.load /etc/apache2/mods-enabled/mpm_worker.conf || true
-RUN a2dismod mpm_event mpm_worker || true
-RUN a2enmod mpm_prefork rewrite
-
-# Change Apache document root to Laravel's public directory
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-# Configure Apache to listen on Render's dynamic $PORT or fallback to 80
-RUN sed -i 's/Listen 80/Listen ${PORT}/g' /etc/apache2/ports.conf
-RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/g' /etc/apache2/sites-available/000-default.conf
 
 # Set working directory
 WORKDIR /var/www/html
@@ -40,3 +26,6 @@ RUN DB_CONNECTION=sqlite DB_DATABASE=database/database.sqlite php artisan migrat
 
 # Expose default port
 EXPOSE 80
+
+# Start PHP built-in web server on the dynamic $PORT provided by Railway
+CMD php -S 0.0.0.0:$PORT -t public
