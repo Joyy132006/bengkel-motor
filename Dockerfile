@@ -7,8 +7,9 @@ RUN apt-get update && apt-get install -y \
     git \
     && docker-php-ext-install pdo pdo_sqlite pdo_mysql
 
-# Enable Apache Mod-Rewrite
-RUN a2enmod rewrite
+# Enable Apache Mod-Rewrite and resolve MPM conflicts
+RUN a2dismod mpm_event mpm_worker || true
+RUN a2enmod mpm_prefork rewrite
 
 # Change Apache document root to Laravel's public directory
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
