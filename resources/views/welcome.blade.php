@@ -329,7 +329,7 @@
             align-items: center;
             width: 100%;
             max-width: 380px;
-            margin: 0 auto;
+            margin: 3.5rem auto 1.5rem;
         }
         .hero-mascot video {
             width: 100%;
