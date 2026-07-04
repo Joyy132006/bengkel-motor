@@ -800,7 +800,7 @@
                         <i data-lucide="user" style="width:13px;height:13px;color:var(--orange)"></i>
                         {{ auth()->user()->name }}
                     </li>
-                    <li>
+                    <li class="hide-mobile">
                         <form method="POST" action="{{ route('logout') }}" style="display:inline">
                             @csrf
                             <button type="submit" class="btn-nav" style="border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.1);color:#F87171">
@@ -809,10 +809,10 @@
                         </form>
                     </li>
                 @else
-                    <li><a href="/dashboard" class="btn-nav"><i data-lucide="layout-dashboard" style="width:14px;height:14px"></i> Dashboard</a></li>
+                    <li class="hide-mobile"><a href="/dashboard" class="btn-nav"><i data-lucide="layout-dashboard" style="width:14px;height:14px"></i> Dashboard</a></li>
                 @endif
             @else
-                <li><a href="/login" class="btn-nav"><i data-lucide="log-in" style="width:14px;height:14px"></i> Masuk</a></li>
+                <li class="hide-mobile"><a href="/login" class="btn-nav"><i data-lucide="log-in" style="width:14px;height:14px"></i> Masuk</a></li>
             @endauth
         </ul>
         <!-- Hamburger Menu Button -->
