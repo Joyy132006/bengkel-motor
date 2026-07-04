@@ -12,8 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // 1. Ubah enum role di tabel users menggunakan raw SQL
-        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'kasir', 'customer') NOT NULL DEFAULT 'customer'");
+        // 1. Ubah enum role di tabel users menggunakan raw SQL (hanya jika mysql)
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'kasir', 'customer') NOT NULL DEFAULT 'customer'");
+        }
 
         // 2. Tambah kolom user_id di tabel bookings
         Schema::table('bookings', function (Blueprint $table) {
@@ -32,7 +34,9 @@ return new class extends Migration
             $table->dropColumn('user_id');
         });
 
-        // 2. Kembalikan enum role di tabel users ke asal
-        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'kasir') NOT NULL DEFAULT 'kasir'");
+        // 2. Kembalikan enum role di tabel users ke asal (hanya jika mysql)
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'kasir') NOT NULL DEFAULT 'kasir'");
+        }
     }
 };
