@@ -404,7 +404,7 @@ class WorkshopController extends Controller
                 'stock' => 'Tersedia',
                 'desc' => 'Ban harian premium dengan struktur tangguh untuk kenyamanan melintasi jalan berlubang.',
                 'icon' => 'disc',
-                'image' => 'pirelli_diablo_rosso.png'
+                'image' => 'pirelli_angel_scooter.png'
             ],
             [
                 'name' => 'Planeto Gold Ring 14',
@@ -475,7 +475,7 @@ class WorkshopController extends Controller
                 'stock' => 'Tersedia',
                 'desc' => 'Oli berlisensi resmi MotoGP untuk perlindungan aus maksimal dan respons tarikan instan.',
                 'icon' => 'droplets',
-                'image' => 'castrol_power1.png'
+                'image' => 'motul_gp_power.png'
             ],
             [
                 'name' => 'Pertamina Enduro Matic-G 20W-40',
@@ -485,7 +485,7 @@ class WorkshopController extends Controller
                 'stock' => 'Tersedia',
                 'desc' => 'Oli matic berkualitas tinggi yang andal melindungi mesin dari gesekan ekstrem jalanan kota.',
                 'icon' => 'droplets',
-                'image' => 'shell_advance_ax7.png'
+                'image' => 'pertamina_enduro.png'
             ],
             [
                 'name' => 'Yamalube Super Matic 10W-40',
@@ -536,7 +536,7 @@ class WorkshopController extends Controller
                 'stock' => 'Tersedia',
                 'desc' => 'Aki gel premium berdaya starter sangat tinggi dengan umur pakai hingga 2 kali aki biasa.',
                 'icon' => 'battery',
-                'image' => 'yuasa_battery.png'
+                'image' => 'motobatt_gel.png'
             ],
             // --- KATEGORI: SUKU CADANG ---
             [
@@ -587,7 +587,7 @@ class WorkshopController extends Controller
                 'stock' => 'Tersedia',
                 'desc' => 'Suspensi belakang premium empuk dengan setelan preload yang bisa disesuaikan beban berkendara.',
                 'icon' => 'settings',
-                'image' => 'vbelt_kit_federal.png'
+                'image' => 'kyb_zeto.png'
             ],
             [
                 'name' => 'Filter Udara Aspira Honda Beat FI',
