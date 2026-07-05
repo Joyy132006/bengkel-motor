@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/booking/{id}/mekanik', [WorkshopController::class, 'assignMekanik'])->name('booking.mekanik');
     Route::post('/booking/{id}/hapus',   [WorkshopController::class, 'hapusBooking'])->name('booking.hapus');
     Route::post('/mekanik/simpan',       [WorkshopController::class, 'simpanMekanik'])->name('mekanik.simpan');
+    Route::post('/mekanik/{id}/update',  [WorkshopController::class, 'updateMekanik'])->name('mekanik.update');
+    Route::post('/mekanik/{id}/hapus',   [WorkshopController::class, 'hapusMekanik'])->name('mekanik.hapus');
 });
 
 // ===== TEST ROUTES (debugging) =====

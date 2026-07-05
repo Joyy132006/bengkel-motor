@@ -1514,7 +1514,20 @@
                 @else
                 <div class="mek-grid">
                     @foreach($mechanics as $m)
-                    <div class="mek-card">
+                    <div class="mek-card" style="position:relative;">
+                        <div style="position:absolute; top:12px; right:12px; display:flex; gap:8px; z-index:10;">
+                            <button class="action-btn" title="Edit" onclick="editMekanik({{ $m->id }}, '{{ addslashes($m->nama_mekanik) }}', '{{ addslashes($m->keahlian) }}')" style="background:none; border:none; color:#64748B; cursor:pointer; padding:4px;">
+                                <i data-lucide="pencil" style="width:16px; height:16px;"></i>
+                            </button>
+                            <button class="action-btn" title="Hapus" onclick="konfirmasiHapus('mek-{{ $m->id }}', '{{ addslashes($m->nama_mekanik) }}')" style="background:none; border:none; color:#EF4444; cursor:pointer; padding:4px;">
+                                <i data-lucide="trash-2" style="width:16px; height:16px;"></i>
+                            </button>
+                        </div>
+                        
+                        <form method="POST" action="{{ route('mekanik.hapus', $m->id) }}" id="hf-mek-{{ $m->id }}" style="display:none;">
+                            @csrf
+                        </form>
+
                         <div class="mek-avatar"><i data-lucide="user-round" style="color:#F97316"></i></div>
                         <div class="mek-name">{{ $m->nama_mekanik }}</div>
                         <div class="mek-skill">{{ $m->keahlian }}</div>
@@ -1830,14 +1843,42 @@
         function toggleMekanikForm() {
             const form = document.getElementById('mekForm');
             const btn  = document.getElementById('toggleMekForm');
+            const formEl = form.querySelector('form');
             if (form.classList.contains('open')) {
                 form.classList.remove('open');
                 btn.textContent = '+ Tambah Mekanik';
+                // Reset form action and values
+                formEl.action = "{{ route('mekanik.simpan') }}";
+                document.getElementById('nama_mekanik').value = '';
+                document.getElementById('keahlian').value = '';
             } else {
                 form.classList.add('open');
                 btn.textContent = '✕ Tutup Form';
                 document.getElementById('nama_mekanik').focus();
             }
+        }
+
+        function editMekanik(id, nama, keahlian) {
+            const form = document.getElementById('mekForm');
+            const btn  = document.getElementById('toggleMekForm');
+            const formEl = form.querySelector('form');
+            
+            // Set action to update
+            formEl.action = `/mekanik/${id}/update`;
+            
+            // Populate values
+            document.getElementById('nama_mekanik').value = nama;
+            document.getElementById('keahlian').value = keahlian;
+            
+            // Open form if not open
+            if (!form.classList.contains('open')) {
+                form.classList.add('open');
+            }
+            btn.textContent = '✕ Batal Edit';
+            document.getElementById('nama_mekanik').focus();
+            
+            // Scroll to form smoothly
+            document.getElementById('mekanik').scrollIntoView({ behavior: 'smooth' });
         }
 
         // ── Auto-open modal if there are validation errors ──

@@ -262,6 +262,30 @@ class WorkshopController extends Controller
         return redirect('/dashboard#mekanik')->with('sukses', 'Mekanik baru berhasil ditambahkan! 🔧');
     }
 
+    public function updateMekanik(Request $request, $id)
+    {
+        $request->validate([
+            'nama_mekanik' => 'required|min:3',
+            'keahlian'     => 'required',
+        ]);
+
+        $m = Mechanic::findOrFail($id);
+        $m->update([
+            'nama_mekanik' => $request->nama_mekanik,
+            'keahlian'     => $request->keahlian,
+        ]);
+
+        return redirect('/dashboard#mekanik')->with('sukses', 'Data mekanik berhasil diperbarui! 🔧');
+    }
+
+    public function hapusMekanik($id)
+    {
+        $m = Mechanic::findOrFail($id);
+        Booking::where('mechanic_id', $id)->update(['mechanic_id' => null]);
+        $m->delete();
+        return redirect('/dashboard#mekanik')->with('sukses', 'Mekanik berhasil dihapus dari sistem.');
+    }
+
     // ===== PUBLIC CUSTOMER METHODS =====
 
     /** Booking oleh customer */
