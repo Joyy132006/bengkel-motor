@@ -367,12 +367,22 @@ class WorkshopController extends Controller
         $products = [
             // --- KATEGORI: BAN ---
             [
-                'name' => 'Michelin Pilot Street',
+                'name' => 'Michelin Pilot Street Ring 14',
                 'category' => 'Ban',
                 'brand' => 'Michelin',
                 'price' => 350000,
                 'stock' => 'Tersedia',
-                'desc' => 'Ban tubeless premium ring 14 dengan cengkeraman maksimal di jalan basah dan kering.',
+                'desc' => 'Ban tubeless premium dengan cengkeraman maksimal di jalan basah dan kering.',
+                'icon' => 'disc',
+                'image' => 'michelin_pilot_street.png'
+            ],
+            [
+                'name' => 'Michelin City Grip 2 Ring 14',
+                'category' => 'Ban',
+                'brand' => 'Michelin',
+                'price' => 420000,
+                'stock' => 'Tersedia',
+                'desc' => 'Ban skuter premium dengan alur ban labirin untuk pembuangan air sangat maksimal.',
                 'icon' => 'disc',
                 'image' => 'michelin_pilot_street.png'
             ],
@@ -383,6 +393,16 @@ class WorkshopController extends Controller
                 'price' => 490000,
                 'stock' => 'Tersedia',
                 'desc' => 'Ban sport balap premium ring 17 untuk kestabilan tinggi pada kecepatan penuh.',
+                'icon' => 'disc',
+                'image' => 'pirelli_diablo_rosso.png'
+            ],
+            [
+                'name' => 'Pirelli Angel Scooter Ring 14',
+                'category' => 'Ban',
+                'brand' => 'Pirelli',
+                'price' => 395000,
+                'stock' => 'Tersedia',
+                'desc' => 'Ban harian premium dengan struktur tangguh untuk kenyamanan melintasi jalan berlubang.',
                 'icon' => 'disc',
                 'image' => 'pirelli_diablo_rosso.png'
             ],
@@ -405,6 +425,16 @@ class WorkshopController extends Controller
                 'desc' => 'Ban tubeless harian dengan desain sporty untuk kenyamanan manuver tajam.',
                 'icon' => 'disc',
                 'image' => 'fdr_sport_xr.png'
+            ],
+            [
+                'name' => 'Aspira Premio Sportivo Ring 14',
+                'category' => 'Ban',
+                'brand' => 'Aspira',
+                'price' => 245000,
+                'stock' => 'Tersedia',
+                'desc' => 'Didesain khusus dengan teknologi Italia menghasilkan keawetan ban luar biasa.',
+                'icon' => 'disc',
+                'image' => 'planeto_gold.png'
             ],
             // --- KATEGORI: OLI ---
             [
@@ -438,6 +468,36 @@ class WorkshopController extends Controller
                 'image' => 'castrol_power1.png'
             ],
             [
+                'name' => 'Motul GP Power 4T 10W-40',
+                'category' => 'Oli',
+                'brand' => 'Motul',
+                'price' => 75000,
+                'stock' => 'Tersedia',
+                'desc' => 'Oli berlisensi resmi MotoGP untuk perlindungan aus maksimal dan respons tarikan instan.',
+                'icon' => 'droplets',
+                'image' => 'castrol_power1.png'
+            ],
+            [
+                'name' => 'Pertamina Enduro Matic-G 20W-40',
+                'category' => 'Oli',
+                'brand' => 'Pertamina',
+                'price' => 45000,
+                'stock' => 'Tersedia',
+                'desc' => 'Oli matic berkualitas tinggi yang andal melindungi mesin dari gesekan ekstrem jalanan kota.',
+                'icon' => 'droplets',
+                'image' => 'shell_advance_ax7.png'
+            ],
+            [
+                'name' => 'Yamalube Super Matic 10W-40',
+                'category' => 'Oli',
+                'brand' => 'Yamaha',
+                'price' => 70000,
+                'stock' => 'Tersedia',
+                'desc' => 'Oli full sintetis khusus untuk skuter matik premium berkapasitas besar.',
+                'icon' => 'droplets',
+                'image' => 'xten_ester_synthetic.png'
+            ],
+            [
                 'name' => 'X-Ten Gear Oil Matic 120ml',
                 'category' => 'Oli',
                 'brand' => 'X-Ten',
@@ -468,6 +528,16 @@ class WorkshopController extends Controller
                 'icon' => 'battery',
                 'image' => 'yuasa_battery.png'
             ],
+            [
+                'name' => 'Motobatt Gel MTZ5S',
+                'category' => 'Aki',
+                'brand' => 'Motobatt',
+                'price' => 265000,
+                'stock' => 'Tersedia',
+                'desc' => 'Aki gel premium berdaya starter sangat tinggi dengan umur pakai hingga 2 kali aki biasa.',
+                'icon' => 'battery',
+                'image' => 'yuasa_battery.png'
+            ],
             // --- KATEGORI: SUKU CADANG ---
             [
                 'name' => 'Kampas Rem Depan Cakram',
@@ -476,6 +546,16 @@ class WorkshopController extends Controller
                 'price' => 45000,
                 'stock' => 'Tersedia',
                 'desc' => 'Kampas rem depan bahan keramik tidak merusak piringan cakram, pakem, dan bebas bising.',
+                'icon' => 'settings',
+                'image' => 'kampas_rem_depan.png'
+            ],
+            [
+                'name' => 'Kampas Rem Belakang Tromol',
+                'category' => 'Suku Cadang',
+                'brand' => 'Astra Otoparts',
+                'price' => 38000,
+                'stock' => 'Tersedia',
+                'desc' => 'Kampas rem tromol pakem dengan daya tahan panas tinggi untuk keselamatan berkendara.',
                 'icon' => 'settings',
                 'image' => 'kampas_rem_depan.png'
             ],
@@ -498,6 +578,26 @@ class WorkshopController extends Controller
                 'desc' => 'Busi iridium premium untuk pengapian presisi, starter lebih cepat, dan efisiensi bahan bakar maksimal.',
                 'icon' => 'settings',
                 'image' => 'busi_ngk_iridium.png'
+            ],
+            [
+                'name' => 'Shockbreaker Belakang KYB Zeto 300mm',
+                'category' => 'Suku Cadang',
+                'brand' => 'Kayaba',
+                'price' => 310000,
+                'stock' => 'Tersedia',
+                'desc' => 'Suspensi belakang premium empuk dengan setelan preload yang bisa disesuaikan beban berkendara.',
+                'icon' => 'settings',
+                'image' => 'vbelt_kit_federal.png'
+            ],
+            [
+                'name' => 'Filter Udara Aspira Honda Beat FI',
+                'category' => 'Suku Cadang',
+                'brand' => 'Aspira',
+                'price' => 42000,
+                'stock' => 'Tersedia',
+                'desc' => 'Saringan udara presisi tinggi untuk menyaring debu secara optimal dan menjaga tarikan motor.',
+                'icon' => 'settings',
+                'image' => 'vbelt_kit_federal.png'
             ]
         ];
 
