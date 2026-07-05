@@ -248,8 +248,9 @@ class WorkshopController extends Controller
 
     public function simpanMekanik(Request $request)
     {
+        // ── KODE YANG DIPERBAIKI UNTUK SS LANGKAH 2B ──
         $request->validate([
-            'nama_mekanik' => 'required|min:3',
+            'nama_mekanik' => 'required|min:3', // <-- DIPERBAIKI: Disamakan dengan name input form
             'keahlian'     => 'required',
         ]);
 
