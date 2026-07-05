@@ -598,6 +598,56 @@ class WorkshopController extends Controller
                 'desc' => 'Saringan udara presisi tinggi untuk menyaring debu secara optimal dan menjaga tarikan motor.',
                 'icon' => 'settings',
                 'image' => 'vbelt_kit_federal.png'
+            ],
+            [
+                'name' => 'Michelin Pilot Moto GP Ring 17',
+                'category' => 'Ban',
+                'brand' => 'Michelin',
+                'price' => 520000,
+                'stock' => 'Tersedia',
+                'desc' => 'Ban balap harian berdaya cengkeram ultra tinggi, stabil di kemiringan ekstrem.',
+                'icon' => 'disc',
+                'image' => 'michelin_pilot_motogp.png'
+            ],
+            [
+                'name' => 'Maxxis Victra S98 ST Ring 14',
+                'category' => 'Ban',
+                'brand' => 'Maxxis',
+                'price' => 310000,
+                'stock' => 'Tersedia',
+                'desc' => 'Ban tubeless dengan karet dual-compound untuk kontrol maksimal di kecepatan tinggi.',
+                'icon' => 'disc',
+                'image' => 'maxxis_victra_s98.png'
+            ],
+            [
+                'name' => 'Shell Advance Ultra 10W-40',
+                'category' => 'Oli',
+                'brand' => 'Shell',
+                'price' => 115000,
+                'stock' => 'Tersedia',
+                'desc' => 'Oli 100% sintetis murni dengan perlindungan mesin tingkat balap profesional.',
+                'icon' => 'droplets',
+                'image' => 'shell_advance_ultra.png'
+            ],
+            [
+                'name' => 'Ipone Katana Scoot 5W-40',
+                'category' => 'Oli',
+                'brand' => 'Ipone',
+                'price' => 145000,
+                'stock' => 'Tersedia',
+                'desc' => 'Oli motor matic full sintetis impor Perancis untuk performa dan akselerasi ekstrem.',
+                'icon' => 'droplets',
+                'image' => 'ipone_katana_scoot.png'
+            ],
+            [
+                'name' => 'Busi Denso Iridium Power IU27',
+                'category' => 'Suku Cadang',
+                'brand' => 'Denso',
+                'price' => 90000,
+                'stock' => 'Tersedia',
+                'desc' => 'Busi iridium Jepang premium dengan ujung elektroda 0.4mm untuk respons mesin instan.',
+                'icon' => 'settings',
+                'image' => 'busi_denso_iridium.png'
             ]
         ];
 
