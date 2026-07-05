@@ -427,7 +427,7 @@
             transition: all .35s;
             position: relative;
             overflow: hidden;
-            cursor: default;
+            cursor: pointer;
         }
         .service-card::after {
             content: '';
@@ -914,24 +914,24 @@
                 <p class="section-sub">Dari tune up rutin hingga perbaikan mesin besar, semua kami tangani dengan penuh dedikasi dan profesionalisme.</p>
             </div>
             <div class="services-grid">
-                <div class="service-card reveal" style="transition-delay:.05s">
+                <a href="/booking" class="service-card reveal" style="text-decoration: none; color: inherit; display: block; transition-delay:.05s">
                     <div class="svc-icon"><i data-lucide="settings" class="ico-svc" style="color:#F97316"></i></div>
                     <div class="svc-name">Tune Up & Servis Rutin</div>
                     <p class="svc-desc">Pengecekan & penyetelan menyeluruh agar motor selalu prima, irit bahan bakar, dan nyaman dikendarai setiap hari.</p>
                     <div class="svc-price">Mulai Rp 75.000 <small>/ servis</small></div>
-                </div>
-                <div class="service-card reveal" style="transition-delay:.1s">
+                </a>
+                <a href="/booking" class="service-card reveal" style="text-decoration: none; color: inherit; display: block; transition-delay:.1s">
                     <div class="svc-icon"><i data-lucide="droplets" class="ico-svc" style="color:#F97316"></i></div>
                     <div class="svc-name">Ganti Oli & Filter</div>
-                    <p class="svc-desc">Penggantian oli mesin dan filter udara dengan produk berkualitas terjamin untuk menjaga mesin tetap awet dan bertenaga.</p>
+                    <p class="svc-desc">Penggantian oli mesin and filter udara dengan produk berkualitas terjamin untuk menjaga mesin tetap awet dan bertenaga.</p>
                     <div class="svc-price">Mulai Rp 50.000 <small>/ ganti</small></div>
-                </div>
-                <div class="service-card reveal" style="transition-delay:.15s">
+                </a>
+                <a href="/booking" class="service-card reveal" style="text-decoration: none; color: inherit; display: block; transition-delay:.15s">
                     <div class="svc-icon"><i data-lucide="wrench" class="ico-svc" style="color:#F97316"></i></div>
                     <div class="svc-name">Servis Mesin & Besar</div>
                     <p class="svc-desc">Perbaikan mendalam komponen mesin, bore up, overhaul, penanganan masalah kompleks oleh teknisi senior berpengalaman.</p>
                     <div class="svc-price">Mulai Rp 250.000 <small>/ pekerjaan</small></div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
