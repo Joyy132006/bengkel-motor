@@ -1114,6 +1114,9 @@
             <a href="#mekanik" class="nav-link" onclick="setActive(this)">
                 <span class="nav-icon"><i data-lucide="wrench"></i></span> Data Mekanik
             </a>
+            <a href="#produk" class="nav-link" onclick="setActive(this)">
+                <span class="nav-icon"><i data-lucide="shopping-bag"></i></span> Kelola Produk
+            </a>
             @else
             <a href="#kasir-info" class="nav-link" onclick="setActive(this)">
                 <span class="nav-icon"><i data-lucide="banknote"></i></span> Pembayaran
@@ -1540,6 +1543,131 @@
                 @endif
             </div>
 
+            {{-- ──────────────────── PRODUK SECTION (Admin Only) ──────────────────── --}}
+            <div class="section-block" id="produk">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <div class="section-icon-wrap"><i data-lucide="shopping-bag" style="color:#F97316"></i></div>
+                        <div class="section-title">Kelola Produk & Suku Cadang</div>
+                    </div>
+                    <button class="btn-orange" id="toggleProdForm" onclick="toggleProdukForm()">
+                        + Tambah Produk
+                    </button>
+                </div>
+
+                <!-- Collapsible Tambah/Edit Produk Form -->
+                <div class="collapsible-form" id="prodForm" style="display:none; margin-bottom: 20px; border: 1px solid var(--border2); padding: 20px; border-radius: 16px; background: var(--bg2);">
+                    <form method="POST" action="{{ route('produk.simpan') }}" id="prodFormEl">
+                        @csrf
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div>
+                                <label class="form-label" for="nama_produk">Nama Produk *</label>
+                                <input type="text" id="nama_produk" name="name" class="form-input" placeholder="cth. Ban Maxxis Victra" required autocomplete="off">
+                            </div>
+                            <div>
+                                <label class="form-label" for="kategori_produk">Kategori *</label>
+                                <select id="kategori_produk" name="category" class="form-select" required>
+                                    <option value="Ban">Ban</option>
+                                    <option value="Oli">Oli</option>
+                                    <option value="Aki">Aki</option>
+                                    <option value="Suku Cadang">Suku Cadang</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="brand_produk">Brand/Merk *</label>
+                                <input type="text" id="brand_produk" name="brand" class="form-input" placeholder="cth. Maxxis" required autocomplete="off">
+                            </div>
+                            <div>
+                                <label class="form-label" for="harga_produk">Harga (Rp) *</label>
+                                <input type="number" id="harga_produk" name="price" class="form-input" placeholder="cth. 150000" required autocomplete="off">
+                            </div>
+                            <div>
+                                <label class="form-label" for="stok_produk">Status Stok *</label>
+                                <select id="stok_produk" name="stock" class="form-select" required>
+                                    <option value="Tersedia">Tersedia</option>
+                                    <option value="Stok Terbatas">Stok Terbatas</option>
+                                    <option value="Habis">Habis</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <label class="form-label" for="desc_produk">Deskripsi Produk</label>
+                            <textarea id="desc_produk" name="desc" class="form-input" rows="2" placeholder="Tulis deskripsi singkat produk..."></textarea>
+                        </div>
+                        <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: flex-end;">
+                            <button type="button" class="btn-secondary" onclick="toggleProdukForm()" style="background:#334155; color:#F1F5F9; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;">Batal</button>
+                            <button type="submit" class="btn-orange" style="padding:8px 16px;">Simpan Produk</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Products Table List -->
+                @if($products->isEmpty())
+                <div class="empty-state">
+                    <div class="empty-icon"><i data-lucide="shopping-bag" style="width:48px;height:48px;color:#64748B"></i></div>
+                    <div class="empty-title">Belum ada produk di katalog</div>
+                    <div class="empty-sub">Tambah produk pertama menggunakan form di atas.</div>
+                </div>
+                @else
+                <div class="table-wrap">
+                    <table class="booking-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Brand</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th style="text-align:right;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($products as $p)
+                            <tr>
+                                <td>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <div style="width:36px; height:36px; background:rgba(249,115,22,.1); border-radius:8px; display:flex; align-items:center; justify-content:center;">
+                                            <i data-lucide="{{ $p->icon }}" style="width:18px; height:18px; color:#F97316;"></i>
+                                        </div>
+                                        <div>
+                                            <div class="primary-text" style="font-weight:600;">{{ $p->name }}</div>
+                                            <div style="font-size:.7rem; color:#64748B;">{{ $p->desc }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge" style="background:#1E293B; color:#F8FAFC; border:1px solid #475569;">{{ $p->category }}</span></td>
+                                <td><div class="primary-text">{{ $p->brand }}</div></td>
+                                <td><div class="primary-text" style="font-weight:700;">Rp {{ number_format($p->price, 0, ',', '.') }}</div></td>
+                                <td>
+                                    @if($p->stock === 'Tersedia')
+                                    <span class="status-badge status-selesai">Tersedia</span>
+                                    @elseif($p->stock === 'Stok Terbatas')
+                                    <span class="status-badge status-proses">Stok Terbatas</span>
+                                    @else
+                                    <span class="status-badge status-antre" style="background:rgba(239,68,68,.1); color:#EF4444; border-color:rgba(239,68,68,.2);">Habis</span>
+                                    @endif
+                                </td>
+                                <td style="text-align:right;">
+                                    <div style="display:inline-flex; gap:8px;">
+                                        <button class="action-btn" title="Edit" onclick="editProduk({{ $p->id }}, '{{ addslashes($p->name) }}', '{{ $p->category }}', '{{ addslashes($p->brand) }}', {{ $p->price }}, '{{ $p->stock }}', '{{ addslashes($p->desc) }}')" style="background:none; border:none; color:#64748B; cursor:pointer; padding:4px;">
+                                            <i data-lucide="pencil" style="width:16px; height:16px;"></i>
+                                        </button>
+                                        <button class="action-btn" title="Hapus" onclick="konfirmasiHapus('prod-{{ $p->id }}', '{{ addslashes($p->name) }}')" style="background:none; border:none; color:#EF4444; cursor:pointer; padding:4px;">
+                                            <i data-lucide="trash-2" style="width:16px; height:16px;"></i>
+                                        </button>
+                                    </div>
+                                    <form method="POST" action="{{ route('produk.hapus', $p->id) }}" id="hf-prod-{{ $p->id }}" style="display:none;">
+                                        @csrf
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
+            </div>
+
             @else
             {{-- ──────────────────── KASIR INFO SECTION ──────────────────── --}}
             <div class="section-block" id="kasir-info">
@@ -1879,6 +2007,55 @@
             
             // Scroll to form smoothly
             document.getElementById('mekanik').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ── Produk form toggle ──
+        function toggleProdukForm() {
+            const form = document.getElementById('prodForm');
+            const btn  = document.getElementById('toggleProdForm');
+            const formEl = document.getElementById('prodFormEl');
+            
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                btn.textContent = '✕ Batal Tambah';
+                formEl.action = "{{ route('produk.simpan') }}";
+                document.getElementById('nama_produk').value = '';
+                document.getElementById('brand_produk').value = '';
+                document.getElementById('harga_produk').value = '';
+                document.getElementById('desc_produk').value = '';
+                document.getElementById('kategori_produk').value = 'Ban';
+                document.getElementById('stok_produk').value = 'Tersedia';
+                document.getElementById('nama_produk').focus();
+            } else {
+                form.style.display = 'none';
+                btn.textContent = '+ Tambah Produk';
+            }
+        }
+
+        // ── Edit Produk ──
+        function editProduk(id, name, category, brand, price, stock, desc) {
+            const form = document.getElementById('prodForm');
+            const btn  = document.getElementById('toggleProdForm');
+            const formEl = document.getElementById('prodFormEl');
+            
+            // Set action to update
+            formEl.action = `/produk/${id}/update`;
+            
+            // Populate values
+            document.getElementById('nama_produk').value = name;
+            document.getElementById('kategori_produk').value = category;
+            document.getElementById('brand_produk').value = brand;
+            document.getElementById('harga_produk').value = price;
+            document.getElementById('stok_produk').value = stock;
+            document.getElementById('desc_produk').value = desc;
+            
+            // Open form
+            form.style.display = 'block';
+            btn.textContent = '✕ Batal Edit';
+            document.getElementById('nama_produk').focus();
+            
+            // Scroll to form smoothly
+            document.getElementById('produk').scrollIntoView({ behavior: 'smooth' });
         }
 
         // ── Auto-open modal if there are validation errors ──
