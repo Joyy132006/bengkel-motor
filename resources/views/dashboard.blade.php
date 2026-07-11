@@ -1557,7 +1557,7 @@
 
                 <!-- Collapsible Tambah/Edit Produk Form -->
                 <div class="collapsible-form" id="prodForm" style="display:none; margin-bottom: 20px; border: 1px solid var(--border2); padding: 20px; border-radius: 16px; background: var(--bg2);">
-                    <form method="POST" action="{{ route('produk.simpan') }}" id="prodFormEl">
+                    <form method="POST" action="{{ route('produk.simpan') }}" id="prodFormEl" enctype="multipart/form-data">
                         @csrf
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                             <div>
@@ -1588,6 +1588,10 @@
                                     <option value="Stok Terbatas">Stok Terbatas</option>
                                     <option value="Habis">Habis</option>
                                 </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="gambar_produk">Foto Produk <span style="color:var(--text3)">(Opsional)</span></label>
+                                <input type="file" id="gambar_produk" name="image" class="form-input" accept="image/*" style="padding: 6.5px 12px;">
                             </div>
                         </div>
                         <div style="margin-top: 15px;">
@@ -2025,6 +2029,7 @@
                 document.getElementById('desc_produk').value = '';
                 document.getElementById('kategori_produk').value = 'Ban';
                 document.getElementById('stok_produk').value = 'Tersedia';
+                document.getElementById('gambar_produk').value = '';
                 document.getElementById('nama_produk').focus();
             } else {
                 form.style.display = 'none';
@@ -2040,6 +2045,7 @@
             
             // Set action to update
             formEl.action = `/produk/${id}/update`;
+            document.getElementById('gambar_produk').value = '';
             
             // Populate values
             document.getElementById('nama_produk').value = name;

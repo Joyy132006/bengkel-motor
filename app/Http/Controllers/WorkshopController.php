@@ -379,6 +379,7 @@ class WorkshopController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required',
             'desc' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $category = $request->input('category');
@@ -394,6 +395,13 @@ class WorkshopController extends Controller
         } elseif ($category === 'Aki') {
             $icon = 'battery';
             $image = 'yuasa_battery.png';
+        }
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $filename);
+            $image = $filename;
         }
 
         \App\Models\Product::create([
@@ -420,6 +428,7 @@ class WorkshopController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required',
             'desc' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $product = \App\Models\Product::findOrFail($id);
@@ -442,6 +451,13 @@ class WorkshopController extends Controller
                 $icon = 'settings';
                 $image = 'vbelt_kit_federal.png';
             }
+        }
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $filename);
+            $image = $filename;
         }
 
         $product->update([
