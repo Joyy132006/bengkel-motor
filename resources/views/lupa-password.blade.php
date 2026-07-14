@@ -115,22 +115,91 @@
             position: relative;
             overflow: hidden;
             width: 50%;
-            height: 100vh;
+            min-height: 100vh;
         }
         @media (min-width: 768px) {
             .card-mascot {
                 display: flex;
                 border-right: 1px solid var(--border);
-                min-height: 100vh;
             }
         }
-        .card-mascot video {
+        .mascot-fallback {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 0;
-            border: none;
-            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1E293B 0%, #0F172A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .mascot-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
+            z-index: 1;
+        }
+        .mascot-illustration {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        .circle-bg {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(249,115,22,0.2) 0%, rgba(249,115,22,0.03) 100%);
+            border: 1px solid rgba(249,115,22,0.2);
+            animation: pulseBg 4s ease-in-out infinite;
+        }
+        .mascot-icon {
+            width: 64px;
+            height: 64px;
+            color: #F97316;
+            filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.4));
+            animation: floatIcon 6s ease-in-out infinite;
+        }
+        .mascot-gear {
+            position: absolute;
+            color: rgba(249, 115, 22, 0.25);
+            z-index: -1;
+        }
+        .gear-1 {
+            width: 48px;
+            height: 48px;
+            top: 25px;
+            right: 25px;
+            animation: rotateClockwise 20s linear infinite;
+        }
+        .gear-2 {
+            width: 36px;
+            height: 36px;
+            bottom: 30px;
+            left: 30px;
+            animation: rotateCounterClockwise 15s linear infinite;
+        }
+
+        @keyframes pulseBg {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(15deg); }
+        }
+        @keyframes rotateClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes rotateCounterClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
         }
 
         /* Form Column (Right) */
@@ -314,10 +383,15 @@
         <div class="card">
             {{-- Mascot Column (Left) --}}
             <div class="card-mascot">
-                <video autoplay loop muted playsinline>
-                    <source src="{{ asset('images/ruka2.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutaran video.
-                </video>
+                <div class="mascot-fallback">
+                    <div class="mascot-glow"></div>
+                    <div class="mascot-illustration">
+                        <div class="circle-bg"></div>
+                        <i data-lucide="wrench" class="mascot-icon"></i>
+                        <i data-lucide="settings" class="mascot-gear gear-1"></i>
+                        <i data-lucide="settings" class="mascot-gear gear-2"></i>
+                    </div>
+                </div>
             </div>
 
             {{-- Form Column (Right) --}}

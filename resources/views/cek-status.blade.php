@@ -192,15 +192,66 @@
             max-width: 380px;
             margin: 0 auto;
         }
-        .header-mascot video {
+        .header-mascot .mascot-fallback {
             width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 20px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid var(--border);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(249, 115, 22, 0.1);
-            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
             animation: floatMascot 6s ease-in-out infinite;
+        }
+        .header-mascot .circle-bg {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(249,115,22,0.02) 100%);
+            border: 1px solid rgba(249,115,22,0.15);
+            animation: pulseBg 4s ease-in-out infinite;
+        }
+        .header-mascot .mascot-icon {
+            width: 72px;
+            height: 72px;
+            color: #F97316;
+            filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.3));
+        }
+        .header-mascot .mascot-gear {
+            position: absolute;
+            color: rgba(249, 115, 22, 0.2);
+            z-index: -1;
+        }
+        .header-mascot .gear-1 {
+            width: 54px;
+            height: 54px;
+            top: 40px;
+            right: 40px;
+            animation: rotateClockwise 20s linear infinite;
+        }
+        .header-mascot .gear-2 {
+            width: 42px;
+            height: 42px;
+            bottom: 40px;
+            left: 40px;
+            animation: rotateCounterClockwise 15s linear infinite;
+        }
+
+        @keyframes pulseBg {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+        @keyframes rotateClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes rotateCounterClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
         }
         .mascot-glow {
             position: absolute;
@@ -447,10 +498,12 @@
             {{-- Mascot column --}}
             <div class="header-mascot reveal" style="transition-delay:.15s">
                 <div class="mascot-glow"></div>
-                <video autoplay loop muted playsinline>
-                    <source src="{{ asset('images/ruka2.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutaran video.
-                </video>
+                <div class="mascot-fallback">
+                    <div class="circle-bg"></div>
+                    <i data-lucide="wrench" class="mascot-icon"></i>
+                    <i data-lucide="settings" class="mascot-gear gear-1"></i>
+                    <i data-lucide="settings" class="mascot-gear gear-2"></i>
+                </div>
             </div>
         </div>
     </section>
